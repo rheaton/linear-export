@@ -1,0 +1,4 @@
+linear_schema.json
+.bundle/
+vendor/
+secrets
