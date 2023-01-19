@@ -1,9 +1,5 @@
 source 'https://rubygems.org'
-
-gem 'graphql-client'
+ruby '~> 2.7'
 gem 'pry'
-
-group :development, :test do
-  gem 'rspec'
-  gem 'rubocop'
-end
+gem 'markdown2confluence'
+gem 'graphql-client'

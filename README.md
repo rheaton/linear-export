@@ -1,2 +1,2 @@
 # linear-export
-POC to interact with Linear GraphQL API
+Linear to Jira exporter/importer
