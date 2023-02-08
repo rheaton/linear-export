@@ -52,6 +52,7 @@ nodes = []
 result = nil
 
 project_name = options[:project_name].split("9").join(" ")
+ALL_PROJECT_NAMES = options[:project_name].split("9")
 
 puts "fetching first 250 issues"
 result = fetcher.client.query(FirstIssueQuery, variables: {name: project_name, first: 250})
@@ -116,6 +117,9 @@ data = ::Common::CsvUtils.generate do |csv|
   csv_rows = SmarterCSV.process(options[:file])
 
   csv_rows.each_with_index do |info, i|
+    unless ALL_PROJECT_NAMES.include?(info[:team])
+      next
+    end
     puts "Working on #{info[:id]} - issue #{i} of #{csv_rows.length}"
     
     id = info[:id]
