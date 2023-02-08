@@ -1,6 +1,7 @@
 require 'optparse'
 require_relative './lib/fetcher'
 require_relative './lib/queries'
+require_relative 'csv_utils'
 require 'json'
 require 'pry'
 

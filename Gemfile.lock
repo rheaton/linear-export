@@ -28,6 +28,7 @@ GEM
       method_source (~> 1.0)
     racc (1.6.2)
     rexml (3.2.5)
+    smarter_csv (1.7.4)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
 
@@ -38,6 +39,7 @@ DEPENDENCIES
   graphql-client
   markdown2confluence
   pry
+  smarter_csv (~> 1.4)
 
 RUBY VERSION
    ruby 2.7.5p203

@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 ruby '~> 2.7'
 gem 'pry'
+gem 'smarter_csv', '~> 1.4'
 gem 'markdown2confluence'
 gem 'graphql-client'
