@@ -111,7 +111,8 @@ data = ::Common::CsvUtils.generate do |csv|
     'Due Date',
     'Parent Id',
     'Label',
-    'Flagged'
+    'Flagged',
+    'Story Points'
 ].concat(comments_array))
 
   csv_rows = SmarterCSV.process(options[:file])
@@ -125,6 +126,7 @@ data = ::Common::CsvUtils.generate do |csv|
     id = info[:id]
     key = id
     project_name = info[:team]
+    story_points = info[:estimate]
 
     label = "ImportedFromLinear"
     label += info[:status] == "Icebox" ? " Icebox" : ""
@@ -178,7 +180,8 @@ data = ::Common::CsvUtils.generate do |csv|
       due_date,
       parent_id,
       label,
-      flagged
+      flagged,
+      story_points
     ].concat(parsed_comments_array))
   end
 end
