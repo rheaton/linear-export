@@ -1,0 +1,612 @@
+{
+  "config.version" : "2.0",
+  "config.project.from.csv" : "false",
+  "config.encoding" : "UTF-8",
+  "config.file.id" : "d378033b-4144-4dbc-aedb-32eb5882a85b",
+  "config.email.suffix" : "@workramp.com",
+  "config.file.name" : "es1-cleaned-comments.csv",
+  "config.field.mappings" : {
+    "Issue Key" : {
+      "jira.field" : "issuekey",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments39" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments37" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments38" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments31" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments32" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments30" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments35" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments36" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments33" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments34" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Status" : {
+      "jira.field" : "status",
+      "userChanged" : "false",
+      "manualMapping" : "true"
+    },
+    "Assignee" : {
+      "jira.field" : "assignee",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments28" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments29" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments26" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments27" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments20" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments21" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments24" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments25" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments22" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments23" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments90" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Description" : {
+      "jira.field" : "description",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments93" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments94" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments91" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments92" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments17" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments18" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments15" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments16" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments19" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments97" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments10" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments98" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments95" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments96" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments13" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments14" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments11" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments99" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments12" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments82" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments83" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments80" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Reporter" : {
+      "jira.field" : "reporter",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments81" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Type" : {
+      "jira.field" : "issuetype",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments86" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments87" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments84" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments85" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Issue Id" : {
+      "jira.field" : "issue-id",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments88" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments89" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments71" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments72" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments100" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Parent Id" : {
+      "jira.field" : "subtask-parent-id",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments70" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Label" : {
+      "jira.field" : "labels",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments75" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments76" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments73" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments74" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments79" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments77" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments78" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments60" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments61" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Priority" : {
+      "jira.field" : "priority",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments64" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments65" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments62" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments63" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments68" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Date Created" : {
+      "jira.field" : "created",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments69" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments66" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Resolution" : {
+      "jira.field" : "resolution",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments67" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments50" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments2" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments3" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments1" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments59" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments53" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments54" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments51" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments52" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments57" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments58" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments55" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Due Date" : {
+      "jira.field" : "duedate",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments56" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Date Resolved" : {
+      "jira.field" : "resolutiondate",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments8" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments48" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments9" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments49" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments6" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments7" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments4" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments5" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments42" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Summary" : {
+      "jira.field" : "summary",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments43" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments40" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments41" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Flagged" : {
+      "userChanged" : "false",
+      "manualMapping" : "false",
+      "existing.custom.field" : "10021"
+    },
+    "Comments46" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments47" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments44" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Comments45" : {
+      "jira.field" : "comment",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    }
+  },
+  "config.csv.file.id" : null,
+  "config.value.mappings" : {
+    "Status" : {
+      "Done" : "10003",
+      "In Review" : "3",
+      "Closed" : "10003",
+      "In Progress" : "3",
+      "Backlog" : "10081",
+      "In QA" : "3",
+      "Open" : "10081"
+    }
+  },
+  "config.delimiter" : ",",
+  "config.project" : {
+    "project.type" : null,
+    "project.key" : "ES1",
+    "project.description" : null,
+    "project.url" : null,
+    "project.name" : "Employee Solutions 1",
+    "project.lead" : null
+  },
+  "config.date.format" : "EEE MMM dd yyyy HH:mm:ss"
+}

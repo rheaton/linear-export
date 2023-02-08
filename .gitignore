@@ -3,3 +3,4 @@ linear_schema.json
 vendor/
 secrets
 /.idea/workspace.xml
+/dgp/*
