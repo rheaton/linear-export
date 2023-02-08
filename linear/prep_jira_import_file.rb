@@ -65,7 +65,7 @@ while(hasNextPage) do
   issues = result.original_hash["data"]["issues"]
 
   new_nodes = issues["nodes"]
-  nodes.concat new_nodes
+  nodes += new_nodes
   hasNextPage = issues["pageInfo"]["hasNextPage"]
   endCursor = issues["pageInfo"]["endCursor"]
 end
@@ -114,35 +114,38 @@ data = ::Common::CsvUtils.generate do |csv|
 
   csv_rows = SmarterCSV.process(options[:file])
 
-  csv_rows.each do |info|
-    puts "Working on issue #{info[:id]}"
+  csv_rows.each_with_index do |info, i|
+    puts "Working on #{info[:id]} - issue #{i} of #{csv_rows.length}"
     
     id = info[:id]
     key = id
     project_name = info[:team]
+
+    label = "ImportedFromLinear"
+    label += info[:status] == "Icebox" ? " Icebox" : ""
+    parent_id = info[:parent_issue]
+    label += !parent_id.nil? ? " sub-task-of-#{parent_id.partition('-').first}" : ""
+
     project_key = id.partition('-').first
+    parent_project_key = parent_id.partition('-').first unless parent_id.nil?
+    parent_id = nil if project_key != parent_project_key
+    
     project_type = 'software'
     summary = info[:title]
     description = convert_markdown(info[:description])
-    status = translate_status(info[:status])
+    type = translate_type(info[:labels], parent_id: !parent_id.nil?, support: parent_project_key == "SUP")
+    status = translate_status(info[:status], type)
     priority = translate_priority(info[:priority])
     reporter = info[:creator]
     assignee = info[:assignee]
-    type = translate_type(info[:labels], parent_id: !info[:parent_issue].nil?)
     date_created = clean_date(info[:created])
     date_resolved = clean_date(info[:completed])
     resolution = get_resolution(status)
     due_date = clean_date(info[:due_date])
-    parent_id = info[:parent_issue]
     flagged = info[:status] == "Blocked" ? "Blocked" : ""
-
-    label = "ImportedFromLinear"
-    label += info[:status] == "Icebox" ? " Icebox" : ""
-    parent_issue_id = info[:parent_issue]
-    label += !parent_issue_id.nil? ? " sub-task-of-#{parent_issue_id.partition('-').first}" : ""
     
     # Run query to get comments
-    sleep(27)
+    sleep(6)
     query_result = fetcher.client.query(CommentsQuery, variables: {id: issues[id]})
     puts query_result.original_hash
     query_result = query_result.original_hash["data"]["comments"]["nodes"]
@@ -201,6 +204,28 @@ BEGIN {
     "PM Review" => "In Review",
     "Icebox" => "Backlog"
   }
+
+  SUBTASK_STATUS_MAP = {
+    "Epics" => "Open",
+    "In Progress" => "In Progress",
+    "Backlog" => "Open",
+    "Todo" => "Open",
+    "Done" => "Done",
+    "Canceled" => "Done",
+    "In Review" => "In Review",
+    "Blocked" => "Open",
+    "Triage" => "Open",
+    "Need More Info" => "Open",
+    "Deployed - Awaiting Task" => "Done",
+    "Resolution Verified" => "Done",
+    "Awaiting Deployment" => "Done",
+    "QA Verified" => "Done",
+    "Awaiting Engineering" => "Open",
+    "In QA" => "In Review",
+    "PM Review" => "In Review",
+    "Icebox" => "Open"
+  }
+  
   PRIORITY_MAP = {
     "Urgent" => "P0",
     "High" => "P1",
@@ -215,18 +240,20 @@ BEGIN {
     "type:epic" => "Epic",
     "type: documentation" => "Task",
     "type:risk" => "Story",
-    "type:ui-issue" => "Bug"
+    "type:ui-issue" => "Bug",
+    "type: estimate" => "Story"
   }
 
-  def translate_status(status)
-    STATUS_MAP[status]
+  def translate_status(status, type)
+    return type == "Sub-task" ? SUBTASK_STATUS_MAP[status] : STATUS_MAP[status]
   end
 
   def translate_priority(priority)
     PRIORITY_MAP[priority]
   end
 
-  def translate_type(labels, parent_id: false)
+  def translate_type(labels, parent_id: false, support: false)
+    return "Support Incident" if support
     return "Sub-task" if parent_id
     return "Story" if labels.nil?
     labels.split(", ").map do |label|
@@ -252,6 +279,7 @@ BEGIN {
 
   def get_resolution(status) 
     return "Won't Do" if status == "Canceled"
+    return "Done" if status == "Done" || status == "Resolved"
     ""
   end
 
