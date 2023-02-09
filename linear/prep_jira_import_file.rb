@@ -259,7 +259,15 @@ BEGIN {
   }
 
   def translate_status(status, type)
-    return type == "Sub-task" ? SUBTASK_STATUS_MAP[status] : STATUS_MAP[status]
+    the_status = (type == "Sub-task") ? SUBTASK_STATUS_MAP[status] : STATUS_MAP[status]
+    # Fix a few that aren't supported in their workflows
+    if the_status == 'Backlog' && type == 'Support Incident'
+      the_status = 'Open'
+    end
+    if the_status == 'Backlog' && (type == 'Task' || type == 'Sub-task')
+      the_status = 'Open'
+    end
+    the_status
   end
 
   def translate_priority(priority)

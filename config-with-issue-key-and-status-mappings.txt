@@ -11,6 +11,11 @@
       "userChanged" : "false",
       "manualMapping" : "false"
     },
+    "Story Points" : {
+      "userChanged" : "true",
+      "manualMapping" : "false",
+      "existing.custom.field" : "10025"
+    },
     "Comments39" : {
       "jira.field" : "comment",
       "userChanged" : "false",
@@ -564,7 +569,7 @@
     "Flagged" : {
       "userChanged" : "false",
       "manualMapping" : "false",
-      "existing.custom.field" : "10021"
+      "existing.custom.field" : "10026"
     },
     "Comments46" : {
       "jira.field" : "comment",
