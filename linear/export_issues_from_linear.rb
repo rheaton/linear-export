@@ -3,9 +3,9 @@ require_relative './lib/queries'
 require 'json'
 require 'pry'
 
-token = IO.read("#{Dir.home}/.linear").strip
-Linear::Fetcher.set_token(token)
-fetcher = Linear::Fetcher.new
+TOKENS_QUEUE = ENV.filter {|k, v| k.start_with? 'LINEAR_API_KEY'}.values.map(&:strip)
+token = TOKENS_QUEUE[0]
+fetcher = Linear::Fetcher.new(token)
 
 UserFragment = fetcher.parse_query_string(Linear::Fragments::USER)
 Query = fetcher.parse_query_string Linear::Queries::ISSUESOFPROJECT
@@ -49,7 +49,7 @@ end
 
 binding.pry
 
-File.open("/tmp/comments.json","w") do |f|
+File.open("#{Dir.pwd}/comments.json","w") do |f|
   f.write(JSON.pretty_generate(nodes))
 end
 

@@ -1,6 +1,8 @@
 require 'optparse'
-require_relative './lib/fetcher'
-require_relative './lib/queries'
+require_relative 'lib/fetcher'
+require_relative 'lib/queries'
+require_relative 'lib/limits_manager'
+
 require_relative 'csv_utils'
 require 'json'
 require 'pry'
@@ -31,46 +33,50 @@ OptionParser.new do |opts|
   end
 end.parse!
 
+
 # Validate Options
 raise OptionParser::MissingArgument if options[:file].nil?
 raise OptionParser::MissingArgument if options[:output_path].nil?
 raise OptionParser::MissingArgument if options[:project_name].nil?
 
 # Fetch all issue ids and identifiers for given project
-token = IO.read("#{Dir.pwd}/.linear").strip
-Linear::Fetcher.set_token(token)
-fetcher = Linear::Fetcher.new
+TOKENS_QUEUE = ENV.filter {|k, v| k.start_with? 'LINEAR_API_KEY'}.values.map(&:strip)
+exit 1 unless TOKENS_QUEUE.length > 0
+token = TOKENS_QUEUE[0]
+puts "Found %d tokens!" % TOKENS_QUEUE.length
+fetcher = Linear::Fetcher.new(token)
+
+@limits_manager = LimitsManager.new(TOKENS_QUEUE)
 
 UserFragment = fetcher.parse_query_string(Linear::Fragments::USER)
 FirstIssueQuery = fetcher.parse_query_string Linear::Queries::FIRSTISSUESOFPROJECT
 IssueQuery = fetcher.parse_query_string Linear::Queries::ISSUESOFPROJECT
 CommentsQuery = fetcher.parse_query_string Linear::Queries::COMMENTS
 
-hasNextPage = true
-endCursor = nil
-nodes = []
-result = nil
-
 project_name = options[:project_name].split("9").join(" ")
 ALL_PROJECT_NAMES = options[:project_name].split("9")
 
-puts "fetching first 250 issues"
-result = fetcher.client.query(FirstIssueQuery, variables: {name: project_name, first: 250})
-issues = result.original_hash["data"]["issues"]
-nodes = issues["nodes"]
-hasNextPage = issues["pageInfo"]["hasNextPage"]
-endCursor = issues["pageInfo"]["endCursor"]
-
-while(hasNextPage) do 
-  puts "fetching 250 issues"
-  result = fetcher.client.query(IssueQuery, variables: {name: project_name, first: 250, after: endCursor})
+nodes = []
+has_next_page = true
+end_cursor = false
+print "Querying. Each dot is 250 issues: |"
+while (has_next_page) do
+  variables = {name: project_name, first: 250}
+  if end_cursor.is_a?(FalseClass) # First query
+    query_class = FirstIssueQuery
+  else
+    query_class = IssueQuery
+    variables[:after] = end_cursor
+  end
+  result = fetcher.client.query(query_class, variables: variables)
+  @limits_manager.process(fetcher.token, fetcher.response_metadata)
+  print '.'
   issues = result.original_hash["data"]["issues"]
-
-  new_nodes = issues["nodes"]
-  nodes += new_nodes
-  hasNextPage = issues["pageInfo"]["hasNextPage"]
-  endCursor = issues["pageInfo"]["endCursor"]
+  nodes += issues["nodes"]
+  has_next_page = issues["pageInfo"]["hasNextPage"]
+  end_cursor = issues["pageInfo"]["endCursor"]
 end
+puts "| Done."
 
 new_issues = {}
 
@@ -118,9 +124,7 @@ data = ::Common::CsvUtils.generate do |csv|
   csv_rows = SmarterCSV.process(options[:file])
 
   csv_rows.each_with_index do |info, i|
-    unless ALL_PROJECT_NAMES.include?(info[:team])
-      next
-    end
+    next unless ALL_PROJECT_NAMES.include?(info[:team])
     puts "Working on #{info[:id]} - issue #{i} of #{csv_rows.length}"
     
     id = info[:id]
@@ -152,9 +156,11 @@ data = ::Common::CsvUtils.generate do |csv|
     flagged = info[:status] == "Blocked" ? "Blocked" : ""
     
     # Run query to get comments
-    sleep(6)
     query_result = fetcher.client.query(CommentsQuery, variables: {id: issues[id]})
-    puts query_result.original_hash
+    @limits_manager.process(fetcher.token, fetcher.response_metadata)
+    @limits_manager.install_healthiest_key(fetcher)
+    @limits_manager.block_until_safe(fetcher.token, @limits_manager.last_complexity)
+    # puts query_result.original_hash
     query_result = query_result.original_hash["data"]["comments"]["nodes"]
     parsed_comments_array = []
     query_result.each do |comment|

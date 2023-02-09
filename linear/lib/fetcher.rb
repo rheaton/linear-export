@@ -4,14 +4,24 @@ Bundler.require
 require "graphql/client"
 require "graphql/client/http"
 require_relative 'fragments'
+require_relative 'custom_network_adapter'
 
 module Linear
   class Fetcher
     API = "https://api.linear.app/graphql"
-    attr_reader :client, :http
-    def initialize
-      initialize_http
+    attr_reader :client, :http, :token
+
+    def initialize(token)
+      @token = token
+      initialize_http(@token)
       initialize_schema
+      initialize_client
+    end
+
+    def update_token(token)
+      return if token == @token
+      @token = token
+      initialize_http(@token)
       initialize_client
     end
 
@@ -23,25 +33,24 @@ module Linear
     #   GraphQL::Client.dump_schema(http, "linear_schema.json")
     # end
 
-    def self.set_token(token)
-      @token = token
-    end
-
-    def self.token
-      @token
+    def response_metadata
+      @http.response_metadata
     end
 
     private
 
-    def initialize_http
-      @http = GraphQL::Client::HTTP.new(API) do
+    def initialize_http(token)
+      @http = CustomNetworkAdapter.new(API) do
         def headers(context)
           {
           "Content-Type": "application/json",
-          "Authorization": "Bearer #{Linear::Fetcher.token}"		
+          "Authorization": "Bearer #{current_token}"
           }
         end
       end
+      puts "Initializing new CNA object id: #{@http.object_id}"
+      @http.current_token = token
+      @http
     end
 
     def initialize_schema
@@ -52,6 +61,6 @@ module Linear
       @client = GraphQL::Client.new(schema: schema, execute: http)
     end
 
-    attr_reader :token, :schema
+    attr_reader :schema
   end
 end
