@@ -53,10 +53,11 @@ options[:output_path] = '%s/%s_Epics.csv' % [Dir.pwd, options[:jira_project]]
 options[:attachables_output_path] = '%s/%s_Attachables.csv' % [Dir.pwd, options[:jira_project]]
 
 PROJECT_STATUS_MAP = {
-  'Planned' => 'Open',
-  'Paused' => 'Work Definition Pending',
-  'Completed' => 'Done',
-  'Canceled' => 'Archive'
+  'planned' => 'Open',
+  'paused' => 'Work Definition Pending',
+  'started' => 'In Progress',
+  'completed' => 'Done',
+  'canceled' => 'Archive'
 }.tap {|h| h.default_proc = proc{|_,status| status}}
 
 raise OptionParser::MissingArgument if %i(team_id jira_project jira_project_key).any? {|k| options[k].nil? }
@@ -97,6 +98,7 @@ data = ::Common::CsvUtils.generate do |csv|
     'Date Resolved',
     'Resolution',
     'Label',
+    'Epic Name'
 ])
   projects.each do |project|
     ticket_list = project['issues']['nodes'].filter {|issue| issue['parent'].nil?}.map {|i| i['identifier']}
@@ -117,7 +119,8 @@ data = ::Common::CsvUtils.generate do |csv|
       DateTime.iso8601(project['createdAt']).strftime('%a %b %d %Y %H:%M:%S'), #date_created
       resolved_date, #date_resolved
       get_resolution(project['state']), #resolution
-      'ImportedFromLinear' #label
+      'ImportedFromLinear', #label
+      trunc(project['name'])
     ])
   end
 end

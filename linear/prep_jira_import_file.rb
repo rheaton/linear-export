@@ -148,7 +148,7 @@ data = ::Common::CsvUtils.generate do |csv|
     summary = info[:title]
     description = convert_markdown(info[:description])
     type = translate_type(info[:labels], parent_id: !parent_id.nil?, support: parent_project_key == "SUP")
-    status = translate_status(info[:status], type)
+    status = translate_status(info[:status], type, options[:project_name])
     priority = translate_priority(info[:priority])
     reporter = info[:creator]
     assignee = info[:assignee]
@@ -222,6 +222,34 @@ BEGIN {
     "Icebox" => "Backlog"
   }
 
+  INFRA_STATUS_MAP = {
+    'Icebox' => 'Backlog', #there aren't any
+    'Backlog' => 'Backlog',
+    'Todo' => 'Open',
+    'Chris' => 'Open',
+    'Paul' => 'Open',
+    'Ryan' => 'Open',
+    'In Progress' => 'In Progress',
+    'Blocked' => 'In Progress',
+    'In Review' => 'In Review',
+    'In QA' => 'In QA',
+    'Done' => 'Done',
+    'Canceled' => 'Archive'
+  }.tap {|h| h.default_proc = proc{|_,status| 'Open' } }
+
+  SUP_STATUS_MAP = {
+    'Awaiting Engineering' => 'Open',
+    'Backlog' => 'Open',
+    'Todo' => 'Open',
+    'In Progress' => 'In Progress',
+    'Need More Info' => 'More Info Required',
+    'Awaiting Deployment' => 'In QA',
+    'Deployed - Awaiting Task' => 'Deployed',
+    'Resolution Verified' => 'Resolved',
+    'Done' => 'Done',
+    'Canceled' => 'Archive'
+  }.tap {|h| h.default_proc = proc{|_,status| status} }
+
   SUBTASK_STATUS_MAP = {
     "Epics" => "Open",
     "In Progress" => "In Progress",
@@ -261,8 +289,15 @@ BEGIN {
     "type: estimate" => "Story"
   }
 
-  def translate_status(status, type)
-    the_status = (type == "Sub-task") ? SUBTASK_STATUS_MAP[status] : STATUS_MAP[status]
+  def translate_status(status, type, full_project_name)
+    if full_project_name == 'Infrastructure'
+      map = INFRA_STATUS_MAP
+    elsif full_project_name == 'Support'
+      map = SUP_STATUS_MAP
+    else
+      map = STATUS_MAP
+    end
+    the_status = (type == "Sub-task") ? SUBTASK_STATUS_MAP[status] : map[status]
     # Fix a few that aren't supported in their workflows
     if the_status == 'Backlog' && type == 'Support Incident'
       the_status = 'Open'

@@ -13,14 +13,26 @@ module Jira
     end
 
     #https://your-domain.atlassian.net/rest/api/3/search?jql=project=PROJECT-KEY AND type=Epic
-    def get_all_epics_in_project_by_name(project_key)
+    def get_all_epics_in_project_by_name(project_key, result_type: :index)
       query = URI.encode_www_form_component('project=%s AND type=Epic' % project_key)
       endpoint = 'https://%s/rest/api/3/search?jql=%s' % [@atlassian_host, query]
       raw_response = rest_response(Net::HTTP::Get, endpoint)
       resp = JSON.parse(raw_response.body)
-      resp['issues'].each_with_object({}) do |hash, result|
-        result[hash['fields']['summary']] = hash['key']
+      if result_type == :index
+        resp['issues'].each_with_object({}) do |hash, result|
+          result[hash['fields']['summary']] = hash['key']
+        end
+      else
+        resp['issues']
       end
+    end
+
+    def update_epic_name_field(epic_key, epic_name)
+      puts "Will update epic name for %s -> %s" % [epic_key, epic_name]
+      body = { 'fields' => { 'customfield_10011' => epic_name } }
+      endpoint = 'https://%s/rest/api/3/issue/%s' % [@atlassian_host, epic_key]
+      raw_response = rest_response(Net::HTTP::Put, endpoint, body: body.to_json)
+      puts raw_response.body
     end
 
     def attach_to_epic(epic_key:, issue_keys:)
