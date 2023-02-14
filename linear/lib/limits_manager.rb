@@ -6,16 +6,36 @@ class LimitsManager
     @stats = {}
   end
 
+  def log_key_stats(selected_key)
+    puts "Stats:"
+    @stats.each do |key, stats|
+      if selected_key == key
+        print "> "
+      else
+        print "  "
+      end
+      puts "%.11s : %s" % [key, stats.to_json]
+    end
+  end
+
+  def refresh_stats
+    @stats.delete_if do |_, value|
+      value[:complexity_reset] < Time.now - 30
+    end
+  end
+
   def install_healthiest_key(fetcher)
+    refresh_stats
     unused_key = @all_keys.find { |key| !@stats.key?(key) }
     unless unused_key.nil?
-      puts "Swapping to yet-unused token: %.11s" % unused_key
+      puts "Swapping to unused or refreshed token: %.11s" % unused_key
       fetcher.update_token(unused_key)
       return unused_key
     end
     # if we get here, all keys have usage
-    best_token = @all_keys.sort_by {|key| 0 - @stats[key][:complexity_remaining] }.first
+    best_token = @all_keys.max_by {|key| @stats[key][:complexity_remaining] }
     puts "Swapping to healthiest token: %.11s" % best_token
+    log_key_stats(best_token)
     fetcher.update_token(best_token)
     best_token
   end
@@ -36,8 +56,8 @@ class LimitsManager
       wait_until = @stats[token][:complexity_reset]
     end
     seconds_to_wait = wait_until - Time.now
-    puts 'Waiting until: %s which I think is %d seconds' % [wait_until, seconds_to_wait.to_i]
-    sleep(seconds_to_wait.to_i)
+    puts 'For complexity %d, waiting until: %s which I think is %d seconds' % [expected_complexity, wait_until, seconds_to_wait.to_i]
+    sleep(seconds_to_wait.to_i + 30)
   end
 
   def process(token, response_metadata)

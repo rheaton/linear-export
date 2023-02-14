@@ -4,3 +4,4 @@ vendor/
 secrets
 /.idea/workspace.xml
 /dgp/*
+/*.csv
