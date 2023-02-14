@@ -1,0 +1,84 @@
+{
+  "config.version" : "2.0",
+  "config.project.from.csv" : "false",
+  "config.encoding" : "UTF-8",
+  "config.file.id" : "763f4910-68ba-44f6-be21-13bc9f6c41d6",
+  "config.email.suffix" : "@workramp.com",
+  "config.file.name" : "Platform_Epics.csv",
+  "config.field.mappings" : {
+    "Status" : {
+      "jira.field" : "status",
+      "userChanged" : "false",
+      "manualMapping" : "true"
+    },
+    "Assignee" : {
+      "jira.field" : "assignee",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Type" : {
+      "jira.field" : "issuetype",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Date Resolved" : {
+      "jira.field" : "resolutiondate",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Description" : {
+      "jira.field" : "description",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Reporter" : {
+      "jira.field" : "reporter",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Label" : {
+      "jira.field" : "labels",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Summary" : {
+      "jira.field" : "summary",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Date Created" : {
+      "jira.field" : "created",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Resolution" : {
+      "jira.field" : "resolution",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    },
+    "Due Date" : {
+      "jira.field" : "duedate",
+      "userChanged" : "false",
+      "manualMapping" : "false"
+    }
+  },
+  "config.csv.file.id" : null,
+  "config.value.mappings" : {
+    "Status" : {
+      "backlog" : "10001",
+      "started" : "3",
+      "planned" : "1",
+      "completed" : "10003"
+    }
+  },
+  "config.delimiter" : ",",
+  "config.project" : {
+    "project.type" : null,
+    "project.key" : "PLAT1",
+    "project.description" : null,
+    "project.url" : null,
+    "project.name" : "Platform",
+    "project.lead" : null
+  },
+  "config.date.format" : "EEE MMM dd yyyy HH:mm:ss"
+}

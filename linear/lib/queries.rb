@@ -195,5 +195,46 @@ module Linear
       }
     }
     GRAPHQL
+
+    PROJECTS_IN_TEAM = <<-'GRAPHQL'
+        query ($teamId: String!) {
+          team(id: $teamId) {
+            projects(first: 60) {
+              nodes {
+                name
+                description
+                targetDate
+                completedAt
+                description
+                name
+                createdAt
+                creator {
+                  email
+                }
+                state
+                updatedAt
+                issues(first: 50) {
+                  nodes {
+                    identifier
+                    parent {
+                      identifier
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+GRAPHQL
   end
+
+  DUMMY = <<~'GRAPHQL'
+    query Emoji($first: Int) {
+      emojis(first: 1) {
+        nodes {
+          name
+        }
+      }
+    }
+  GRAPHQL
 end

@@ -125,6 +125,9 @@ data = ::Common::CsvUtils.generate do |csv|
 
   csv_rows.each_with_index do |info, i|
     next unless ALL_PROJECT_NAMES.include?(info[:team])
+    # team, key = info[:id].split('-')
+    # next if (team == 'ACC' && key.to_i <= 166)
+    # next unless SPECIAL_KEYS.include?(info[:id])
     puts "Working on #{info[:id]} - issue #{i} of #{csv_rows.length}"
     
     id = info[:id]

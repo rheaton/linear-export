@@ -48,7 +48,7 @@ module Linear
           }
         end
       end
-      puts "Initializing new CNA object id: #{@http.object_id}"
+      # puts "Initializing new CNA object id: #{@http.object_id}"
       @http.current_token = token
       @http
     end
