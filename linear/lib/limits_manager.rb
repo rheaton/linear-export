@@ -14,7 +14,13 @@ class LimitsManager
       else
         print "  "
       end
-      puts "%.11s : %s" % [key, stats.to_json]
+      puts "%.11s | Comp Rem: %10d | Comp Reset: %s | Req Rem: %10d | Req Reset: %s" % [
+        key,
+        stats[:complexity_remaining],
+        stats[:complexity_reset].strftime('%m/%d %I:%M%p'),
+        stats[:requests_remaining],
+        stats[:requests_reset].strftime('%m/%d %I:%M%p')
+      ]
     end
   end
 
