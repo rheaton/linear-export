@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/features" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/dgp" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -26,6 +27,7 @@
     <orderEntry type="library" scope="PROVIDED" name="pry (v0.14.1, chruby: ruby-2.7.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="racc (v1.6.2, chruby: ruby-2.7.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.2.5, chruby: ruby-2.7.5) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="smarter_csv (v1.7.4, chruby: ruby-2.7.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v2.0.5, chruby: ruby-2.7.5) [gem]" level="application" />
   </component>
 </module>
