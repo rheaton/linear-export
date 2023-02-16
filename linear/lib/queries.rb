@@ -226,15 +226,36 @@ module Linear
           }
         }
 GRAPHQL
-  end
 
-  DUMMY = <<~'GRAPHQL'
-    query Emoji($first: Int) {
-      emojis(first: 1) {
-        nodes {
-          name
+    DUMMY = <<~'GRAPHQL'
+      query ($first: Int) {
+        emojis(first: 1) {
+          nodes {
+            name
+          }
         }
       }
-    }
-  GRAPHQL
+    GRAPHQL
+
+    ISSUE_IDS_WITH_SUBTASK_IDS = <<~'GRAPHQL'
+      query ($teamId: String!, $first: Int, $after: String) {
+        team(id: $teamId) {
+          issues(first: $first, after: $after ) {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+            nodes {
+              identifier
+              children {
+                nodes {
+                  identifier
+                }
+              }
+            }
+          }
+        }
+      }
+    GRAPHQL
+  end
 end

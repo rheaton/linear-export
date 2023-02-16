@@ -28,7 +28,7 @@ module Jira
     end
 
     def update_epic_name_field(epic_key, epic_name)
-      puts "Will update epic name for %s -> %s" % [epic_key, epic_name]
+      puts 'Will update epic name for %s -> %s' % [epic_key, epic_name]
       body = { 'fields' => { 'customfield_10011' => epic_name } }
       endpoint = 'https://%s/rest/api/3/issue/%s' % [@atlassian_host, epic_key]
       raw_response = rest_response(Net::HTTP::Put, endpoint, body: body.to_json)
@@ -38,6 +38,23 @@ module Jira
     def attach_to_epic(epic_key:, issue_keys:)
       body = { 'issues' => issue_keys }
       endpoint = 'https://%s/rest/agile/1.0/epic/%s/issue' % [@atlassian_host, epic_key]
+      raw_response = rest_response(Net::HTTP::Post, endpoint, body: body.to_json)
+      puts raw_response.body
+    end
+
+    def create_issue_link(the_good_issue, the_duplicate_issue)
+      body = {
+        'type' => {
+          'name' => 'Duplicate', 'inward' => 'is duplicated by', 'outward' => 'duplicates'
+        },
+        'inwardIssue' => {
+          'key' => the_duplicate_issue
+        },
+        'outwardIssue' => {
+          'key' => the_good_issue
+        }
+      }
+      endpoint = 'https://%s/rest/api/3/issueLink' % [@atlassian_host]
       raw_response = rest_response(Net::HTTP::Post, endpoint, body: body.to_json)
       puts raw_response.body
     end

@@ -82,8 +82,7 @@ fetcher = Linear::Fetcher.new(token)
 @limits_manager = LimitsManager.new(TOKENS_QUEUE)
 
 ProjectsQuery = fetcher.parse_query_string Linear::Queries::PROJECTS_IN_TEAM
-# TODO RESUME HERE. Need to get results, PASSING TEAM ID, and iterate. build a csv for epics
-#
+
 variables = {teamId: options[:team_id]}
 result = fetcher.client.query(ProjectsQuery, variables: variables)
 
