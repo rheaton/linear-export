@@ -26,6 +26,17 @@ def get_resolution(status)
   ""
 end
 
+def trunc(str, max = 25)
+  if str.length <= max
+    return str
+  else
+    remove_chars = str.length - (max - 1)
+    start_pos = (str.length - remove_chars) / 2
+    end_pos = start_pos + remove_chars - 1
+    return str[0..(start_pos-1)] + "…" + str[(end_pos+1)..-1]
+  end
+end
+
 def convert_markdown(text)
   text ||= ""
   text = text.to_s unless text.is_a? String
@@ -120,7 +131,7 @@ data = ::Common::CsvUtils.generate do |csv|
       resolved_date, #date_resolved
       get_resolution(project['state']), #resolution
       'ImportedFromLinear', #label
-      trunc(project['name'])
+      trunc(project['name'], 25)
     ])
   end
 end

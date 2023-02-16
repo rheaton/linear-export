@@ -133,6 +133,7 @@ data = ::Common::CsvUtils.generate do |csv|
     id = info[:id]
     key = id
     project_name = info[:team]
+    project_name = "Customer Support" if project_name == 'Support'
     story_points = info[:estimate]
 
     label = "ImportedFromLinear"
@@ -248,7 +249,7 @@ BEGIN {
     'Resolution Verified' => 'Resolved',
     'Done' => 'Done',
     'Canceled' => 'Archive'
-  }.tap {|h| h.default_proc = proc{|_,status| status} }
+  }.tap {|h| h.default_proc = proc{|_,status| 'Open'} }
 
   SUBTASK_STATUS_MAP = {
     "Epics" => "Open",
